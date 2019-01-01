@@ -7,8 +7,9 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { NotesComponent } from './notes/notes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http"
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 const routes: Routes = [
   { path: 'notes', component: NotesComponent },
   { path: 'feedback', component: FeedbackComponent },
@@ -28,7 +29,7 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {enableTracing :true})
+    RouterModule.forRoot(routes, {enableTracing :false})
   ],
   providers: [],
   bootstrap: [AppComponent]
