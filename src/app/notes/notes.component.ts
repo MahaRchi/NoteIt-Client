@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../shared/api.service';
+import {Notebook} from './model/notebook';
 
 @Component({
   selector: 'app-notes',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotesComponent implements OnInit {
 
-  constructor() { }
+notebooks : Notebook[] = [];
+
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+
+    this.getAllNotebooks();
   }
+
+public getAllNotebooks()
+{
+  this.apiService.getAllNotebooks().subscribe(
+
+    res => {this.notebooks = res},
+    err => {alert('An error was occured')}
+  );
+
+}
 
 }

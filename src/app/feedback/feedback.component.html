@@ -2,7 +2,8 @@
 <div class="row">
   <div class="offset-3"></div>
     <div class="col-md-6">
-      <form name="form" novalidate class="feedback-form" #f="ngForm" (ngSubmit) ="sendFeedback()">
+      <form name="form" novalidate class="feedback-form" #f="ngForm"
+      (ngSubmit) = " f.form.valid && sendFeedback()">
           <div class="form-group">
             <label for="name">First Name</label>
             <input type="text"
@@ -10,7 +11,17 @@
              class="form-control"
              name="name"
              placeholder="Your name"
-             [(ngModel)]="model.name"/>
+             [(ngModel)]="model.name"
+             #name="ngModel"
+             [ngClass]="{'is-invalid': f.submitted && name.invalid}"
+             required
+             />
+             <div *ngIf="f.submitted && name.invalid" class="invalid-input">
+              <!--invidual validation errors  -->
+              <div *ngIf="name.errors?.required">
+              Field is required
+              </div>
+             </div>
           </div>
           <!-- [(ngModel)] is two way binded -->
           <div class="form-group">
@@ -21,7 +32,21 @@
               class="form-control"
               name="email"
               placeholder="Your email"
-              [(ngModel)]="model.email" />
+              [(ngModel)]="model.email"
+              #email="ngModel"
+              [ngClass]="{'is-invalid': f.submitted && email.invalid}"
+              required email
+              />
+
+              <div *ngIf="f.submitted && email.invalid" class="invalid-input">
+               <!--invidual validation errors  -->
+               <div *ngIf="email.errors?.required">
+                 Field is required
+               </div>
+               <div *ngIf="email.errors?.email">
+                 Fied is not a valid email
+               </div>
+              </div>
           </div>
 
           <div class="form-group">
@@ -32,8 +57,23 @@
              id="feedback"
              class="form-control"
              placeholder="Your feedback"
-             [(ngModel)]="model.feedback">
+             [(ngModel)]="model.feedback"
+             #feedback="ngModel"
+             [ngClass]="{'is-invalid': f.submitted && feedback.invalid}"
+             required minlength="10"
+             >
              </textarea>
+
+             <div *ngIf="f.submitted && feedback.invalid" class="invalid-input">
+              <!--invidual validation errors  -->
+              <div *ngIf="feedback.errors?.required">
+                Field is required
+              </div>
+              <div *ngIf="feedback.errors?.minlength">
+                Fied is too small
+              </div>
+             </div>
+
           </div>
 
           <button type="submit"
