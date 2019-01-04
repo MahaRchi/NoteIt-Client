@@ -34,7 +34,7 @@ style="margin-left:12px;"> <i class="fa fa-plus"></i> New note
   <div class="col-md-3">
 <br>
 <div class="list-group list-group-flush">
-  <a class="list-group-item list-group-item-action" (click)="selectedNoteBook = null">
+  <a class="list-group-item list-group-item-action" (click)="selectAllNotes()">
 <i class="fa fa-book"></i> &nbsp;All
 </a>
     <!--Notebook list-->
@@ -60,7 +60,7 @@ style="margin-left:12px;"> <i class="fa fa-plus"></i> New note
 <div class="row">
   <div class="col-md-12">
     <h3 *ngIf="selectedNoteBook">{{selectedNoteBook.name}}</h3>
-      <h3 *ngIf="!selectedNoteBook"> All notes :)</h3>
+      <h3  *ngIf="!selectedNoteBook"> All notes :)</h3>
   <p *ngIf="this.notes.length ===0"> There are no notes to display in this notebook! U________U</p>
   </div>
 </div>
@@ -70,13 +70,20 @@ style="margin-left:12px;"> <i class="fa fa-plus"></i> New note
 <div class="card-body" style="padding: 8px; margin-top:8px;">
   <div>
     <!--Title-->
-    <input [(ngModel)]="note.title" type="text" class="input-label-lg" maxlength="18" style="width: 80%"/>
-    <a (click)="deleteNote(note)" class="pull-right text-danger"> <i class="fa fa-trash-o"></i>   </a>
+    <input [(ngModel)]="note.title"
+    (change)="updateNote(note)"
+     type="text"
+    class="input-label-lg"
+      maxlength="18"
+      style="width: 80%"/>
+    <a (click)="deleteNote(note)" class="pull-right text-danger" > <i class="list-group-item fa fa-trash-o"></i>   </a>
 
 
   </div>
 <!--text-->
-<textarea [(ngModel)]="note.text" class="input-label" style="width: 100%" rows="6"></textarea>
+<textarea [(ngModel)]="note.text"
+          (change)="updateNote(note)"
+class="input-label" style="width: 100%" rows="6"></textarea>
 <strong class="text-info" style="font-size: small"></strong>
 </div>
 </div>

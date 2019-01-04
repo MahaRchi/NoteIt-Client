@@ -17,6 +17,7 @@ private DELETE_NOTEBOOK_URL =`${this.BASE_URL}/notebooks/`;
 private ALL_NOTES_URL =`${this.BASE_URL}/notes/all`;
 private SAVE_UPDATE_NOTE_URL =`${this.BASE_URL}/notes`;
 private NOTES_BYNOTEBOOK_URL =`${this.BASE_URL}\\notes\\byNotebook\\`;
+private DELETE_NOTE_URL =`${this.BASE_URL}\\notes\\`;
 
   constructor(private http : HttpClient) {}
 
@@ -42,7 +43,7 @@ postFeedback(feedback : FeedbackViewModel) : Observable<any>
 
 postNotebook(nb : Notebook) : Observable<Notebook>
 {
-  return this.http.post(this.SAVE_UPDATE_NOTEBOOK_URL,nb);
+  return this.http.post<Notebook>(this.SAVE_UPDATE_NOTEBOOK_URL,nb);
 }
 
 postNote(note : Note) : Observable<Note>
@@ -55,7 +56,10 @@ deleteNotebook(id: String): Observable<any>
   return this.http.delete(this.DELETE_NOTEBOOK_URL + id);
 }
 
-
+  deleteNote(idNote : string): Observable<any>
+  {
+    return this.http.delete(this.DELETE_NOTE_URL + idNote);
+  }
 
 
 }

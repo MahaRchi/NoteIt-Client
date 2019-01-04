@@ -69,7 +69,7 @@ deleteNotebook(notebook : Notebook){
         let indexOfNotebook = this.notebooks.indexOf(notebook);
         this.notebooks.splice(indexOfNotebook,1);
 
-      };
+      },
       err => {alert("could not delete");}
     )
   }
@@ -85,6 +85,16 @@ getAllNotes()
 
 deleteNote(note : Note)
 {
+  if(confirm("Are u sure u want to delete this note?")){
+    this.apiService.deleteNote(note.id).subscribe(
+      res => {
+        let indexOfNote = this.notes.indexOf(note);
+        this.notes.splice(indexOfNote,1);
+
+      },
+      err => {alert("could not delete the note");}
+    )
+  }
 
 }
 
@@ -109,6 +119,11 @@ createNote(notebookId : string){
   );
 }
 
+selectAllNotes(){
+  this.selectedNoteBook = null;
+  this.getAllNotes();
+}
+
 selectNotebook(notebook : Notebook){
   this.selectedNoteBook = notebook;
   console.log( this.selectedNoteBook);
@@ -120,5 +135,17 @@ selectNotebook(notebook : Notebook){
     },
     err => {alert("eerror while grabing note by notebook");}
   );
+}
+
+updateNote(updatedNote : Note){
+
+  this.apiService.postNote(updatedNote).subscribe(
+
+    res => {
+      console.log("updated note")
+    },
+    err => {alert('An error was occured while updating note')}
+  );
+
 }
 }
